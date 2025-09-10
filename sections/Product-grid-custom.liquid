@@ -23,7 +23,7 @@
 
     {% if product %}
       <div class="product-card">
-        <div class="prooduct-card__image">
+        <div class="product-card__image">
           <img src="{{ product.featured_image | img_url: '600x600' }}" alt="{{ product.title }}">
           <span 
             class="product-card__overlay quick-view-trigger" 
@@ -69,6 +69,114 @@
   </div>
 </div>
 
+<style>
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 50px;
+  margin: 30px 0;
+}
+.product-card {
+  text-align: center;
+  position: relative;
+}
+.product-card__image img {
+  width: 100%;
+}
+.product-card__overlay {
+  position: absolute;
+  top: 10px; right: 10px;
+  background: #fff; color: #000;
+  font-size: 20px;
+  width: 30px; height: 30px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; cursor: pointer;
+}
+
+.quick-view-modal {
+  display: none;
+  position: fixed; top: 0; left: 0;
+  width: 100%; height: 100%;
+  background:rgba(0,0,0,0.6);
+  justify-content: center; align-items: center;
+  z-index: 9999;
+}
+.quick-view-content {
+  background: #fff;
+  padding: 20px;
+  max-width: 500px;
+  width: 95%;
+  position: relative;
+}
+.quick-view-close {
+  position: absolute; top: 10px; right: 15px;
+  font-size: 22px; cursor: pointer;
+}
+.quick-view-body {
+  display: flex; gap: 20px;
+}
+.quick-view-image img {
+  max-width: 200px;
+  height: -webkit-fill-available;
+}
+.quick-view-details {
+  flex: 1;
+}
+.quick-view-details h2 {
+  margin: 0 0 8px;
+  font-size: 20px; font-weight: bold;
+}
+#qv-price {
+  font-weight: 600;
+}
+.quick-view-details p {
+  margin: 0 0 11px;
+}
+
+/* Variants */
+.variant-group { margin: 15px 0; }
+.variant-label { font-weight: bold; margin-bottom: 6px; display: block; }
+.variant-options { display: flex; gap: 5px; }
+.variant-btn {
+  padding: 6px 14px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+.variant-btn.selected {
+  border-color: #000; background: #000; color: #fff;
+}
+.variant-select {
+  width: 100%; padding: 8px; border: 1px solid #ccc;
+}
+
+/* Add to cart */
+.qv-add-to-cart {
+  margin-top: 20px;
+  width: 100%;
+  background: #000; color: #fff;
+  border: none;
+  padding: 12px; font-size: 16px;
+  cursor: pointer;
+}
+.qv-add-to-cart:hover {
+  background: #333;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+  .product-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 10px; }
+  .quick-view-content { max-width: 80%; }
+  .quick-view-image img { max-width: 120px; }
+  .quick-view-details { font-size: 11px; }
+  .quick-view-details h2 { font-size: 15px; }
+  .variant-label { font-size: 12px; }
+  .variant-btn { font-size: 11px; }
+  .variant-select { font-size: 10px; }
+  .qv-add-to-cart { font-size: 11px; }
+}
+</style>
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
   const modal = document.getElementById("quick-view-modal");
@@ -84,7 +192,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
   let currentProduct = null;
   let selectedVariant = null;
-// Open popup
+
+  // Open popup
   document.querySelectorAll(".quick-view-trigger").forEach(btn => {
     btn.addEventListener("click", function() {
       const product = JSON.parse(this.dataset.product);
@@ -188,113 +297,3 @@ document.addEventListener("DOMContentLoaded", function() {
   window.addEventListener("click", e => { if (e.target === modal) modal.style.display = "none"; });
 });
 </script>
-
-
-
-<style>
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  padding: 50px;
-  margin: 30px 0;
-}
-.product-card {
-  text-align: center;
-  position: rellative;
-}
-.product-card__image img {
-  width: 100%;
-}
-.product-card__overlay {
-  position: absolute;
-  top: 10px; right: 10px;
-  background: #fff; color: #000;
-  font-size: 20px;
-  width: 30px; height: 30px;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 50%; cursor: pointer;
-}
-
-.quick-view-modal {
-  display: none;
-  position: fixed; top: 0; left: 0;
-  width: 100%; height: 100%;
-  background:rgba(0,0,0,0.6);
-  justify-content: center; align-items: center;
-  z-index: 9999;
-}
-.quick-view-content {
-  background: #fff;
-  padding: 20px;
-  max-width: 500px;
-  width: 95%;
-  position: relative;
-}
-.quick-view-close {
-  position: absolute; top: 10px; right: 15px;
-  font-size: 22px; cursor: pointer;
-}
-.quick-view-body {
-  display: flex; gap: 20px;
-}
-.quick-view-image img {
-  max-width: 200px;
-  height: -webkit-fill-available;
-}
-.quick-view-details {
-  flex: 1;
-}
-.quick-view-details h2 {
-  margin: 0 0 8px;
-  font-size: 20px; font-weight: bold;
-}
-#qv-price {
-  font-weight: 600;
-}
-.quick-view-details p {
-  margin: 0 0 11px;
-}
-
-/* Variants */
-.variant-group { margin: 15px 0; }
-.variant-label { font-weight: bold; margin-bottom: 6px; display: block; }
-.variant-options { display: flex; gap: 5px; }
-.variant-btn {
-  padding: 6px 14px;
-  border: 1px solid #ccc;
-  cursor: pointer;
-}
-.variant-btn.selected {
-  border-color: #000; background: #000; color: #fff;
-}
-.variant-select {
-  width: 100%; padding: 8px; border: 1px solid #ccc;
-}
-
-/* Add to cart */
-.qv-add-to-cart {
-  margin-top: 20px;
-  width: 100%;
-  background: #000; color: #fff;
-  border: none;
-  padding: 12px; font-size: 16px;
-  cursor: pointer;
-}
-.qv-add-to-cart:hover {
-  background: #333;
-}
-
-/* Responsive */
-@media (max-width: 767px) {
-  .product-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 10px; }
-  .quick-view-content { max-width: 80%; }
-  .quick-view-image img { max-width: 120px; }
-  .quick-view-details { font-size: 11px; }
-  .quick-view-details h2 { font-size: 15px; }
-  .variant-label { font-size: 12px; }
-  .variant-btn { font-size: 11px; }
-  .variant-select { font-size: 10px; }
-  .qv-add-to-cart { font-size: 11px; }
-}
-</style>
