@@ -17,18 +17,6 @@
         "padding_bottom": 28
       }
     },
-    "product_grid_custom_ChHDqj": {
-      "type": "Product-grid-custom",
-      "name": "Product-grid-popup",
-      "settings": {
-        "product_1": "black-leather-bag",
-        "product_2": "blue-silk-tuxedo",
-        "product_3": "chequered-red-shirt",
-        "product_4": "classic-leather-jacket",
-        "product_5": "classic-varsity-top",
-        "product_6": "dark-denim-top"
-      }
-    },
     "banner_custom_KfAWpC": {
       "type": "banner-custom",
       "name": "banner-custom",
@@ -41,7 +29,20 @@
         "banner_description": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
         "banner_button_text": "SHOP NOW",
         "banner_button_link": "shopify://collections/all",
-        "banner_footer_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+        "banner_footer_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL",
+        "banner_image": "shopify://shop_images/1.png"
+      }
+    },
+    "product_grid_custom_ChHDqj": {
+      "type": "Product-grid-custom",
+      "name": "Product-grid-popup",
+      "settings": {
+        "product_1": "black-leather-bag",
+        "product_2": "blue-silk-tuxedo",
+        "product_3": "chequered-red-shirt",
+        "product_4": "classic-leather-jacket",
+        "product_5": "classic-varsity-top",
+        "product_6": "dark-denim-top"
       }
     }
   },
