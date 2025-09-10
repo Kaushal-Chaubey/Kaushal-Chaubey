@@ -31,6 +31,7 @@
             data-image="{{ product.featured_image | img_url: '600x600' }}"
           >+</span>
         </div>
+       
       </div>
     {% endif %}
   {% endfor %}
@@ -40,33 +41,42 @@
 <div id="quick-view-modal" class="quick-view-modal">
   <div class="quick-view-content">
     <span class="quick-view-close">&times;</span>
-
     <div class="quick-view-body">
+      
+      <!-- LEFT: IMAGE -->
       <div class="quick-view-image">
         <img id="qv-image" src="" alt="">
       </div>
+      
+      <!-- RIGHT: DETAILS -->
       <div class="quick-view-details">
         <h2 id="qv-title"></h2>
         <p id="qv-price"></p>
         <p id="qv-description"></p>
       </div>
-    </div>
 
-    <div class="variant-group">
-      <label class="variant-label">Color</label>
-      <div id="qv-colors" class="variant-options"></div>
     </div>
+        
+        <!-- COLOR VARIANTS -->
+        <div class="variant-group">
+          <label class="variant-label">Color</label>
+          <div id="qv-colors" class="variant-options"></div>
+        </div>
+        
+        <!-- SIZE VARIANTS -->
+        <div class="variant-group">
+          <label class="variant-label">Size</label>
+          <select id="qv-sizes" class="variant-select"></select>
+        </div>
 
-    <div class="variant-group">
-      <label class="variant-label">Size</label>
-      <select id="qv-sizes" class="variant-select"></select>
+        <!-- ADD TO CART -->
+        <form id="qv-form">
+          <input type="hidden" id="selected-variant-id" name="id">
+          <button type="submit" class="qv-add-to-cart">ADD TO CART    →</button>
+        </form>
+      </div>
     </div>
-
-    <form id="qv-form">
-      <input type="hidden" id="selected-variant-id" name="id">
-      <button type="submit" class="qv-add-to-cart">ADD TO CART →</button>
-    </form>
-  </div>
+ 
 </div>
 
 <style>
@@ -74,38 +84,44 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  padding: 50px;
-  margin: 30px 0;
+  padding:50px;
 }
 .product-card {
   text-align: center;
   position: relative;
 }
-.product-card__image img {
-  width: 100%;
+.product-card__image {
+  position: relative;
 }
+.product-card__image img{
+width:100%;}
 .product-card__overlay {
   position: absolute;
-  top: 10px; right: 10px;
-  background: #fff; color: #000;
+  top: 10px;
+  right: 10px;
+  background: black;
+  color: white;
   font-size: 20px;
-  width: 30px; height: 30px;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 50%; cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
 }
-
 .quick-view-modal {
   display: none;
   position: fixed; top: 0; left: 0;
   width: 100%; height: 100%;
-  background:rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.6);
   justify-content: center; align-items: center;
   z-index: 9999;
 }
 .quick-view-content {
   background: #fff;
   padding: 20px;
-  max-width: 500px;
+  max-width: 460px;
   width: 95%;
   position: relative;
 }
@@ -113,71 +129,101 @@
   position: absolute; top: 10px; right: 15px;
   font-size: 22px; cursor: pointer;
 }
+
+/* --- Body Layout --- */
 .quick-view-body {
-  display: flex; gap: 20px;
+  display: flex; gap: 20px; ;padding-top:20px
 }
 .quick-view-image img {
-  max-width: 200px;
-  height: -webkit-fill-available;
+    max-width: 200px;
+    height: -webkit-fill-available;
 }
 .quick-view-details {
   flex: 1;
 }
 .quick-view-details h2 {
   margin: 0 0 8px;
-  font-size: 20px; font-weight: bold;
-}
-#qv-price {
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: bold;
 }
 .quick-view-details p {
-  margin: 0 0 11px;
+  margin: 0 0 12px;
 }
 
-/* Variants */
+/* --- Variant Styling --- */
 .variant-group { margin: 15px 0; }
 .variant-label { font-weight: bold; margin-bottom: 6px; display: block; }
-.variant-options { display: flex; gap: 5px; }
+.variant-options { display: flex;  justify-Content:center; }
 .variant-btn {
+    width:220px;
   padding: 6px 14px;
   border: 1px solid #ccc;
+ 
   cursor: pointer;
 }
 .variant-btn.selected {
-  border-color: #000; background: #000; color: #fff;
+  border-color: #000;
+  background: #000;
+  color: #fff;
 }
 .variant-select {
-  width: 100%; padding: 8px; border: 1px solid #ccc;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  
 }
 
-/* Add to cart */
+/* --- Add to Cart --- */
 .qv-add-to-cart {
   margin-top: 20px;
   width: 100%;
-  background: #000; color: #fff;
+  background: #000;
+  color: #fff;
   border: none;
-  padding: 12px; font-size: 16px;
+  padding: 12px;
+  font-size: 16px;
+  {% comment %} border-radius: 4px; {% endcomment %}
   cursor: pointer;
 }
 .qv-add-to-cart:hover {
   background: #333;
 }
 
-/* Responsive */
 @media (max-width: 767px) {
-  .product-grid {
-     grid-template-columns: repeat(2, 1fr); 
-     gap: 20px; padding: 10px 30px 10px 30px; 
-     }
+.product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 30px 30px 10px 30px;
+}
+.product-grid {
+  font-size:1rem;
+}
+.quick-view-content {
+    max-width: 80%;
+}
+.quick-view-image img {
+    max-width: 120px;
+}
+.quick-view-details {
+    font-size: 11px;
+}
+.quick-view-details h2 {
+    font-size: 15px;
+}
+.variant-label {
+    font-size: 12px;
+}
+.variant-btn {
+    font-size: 11px;
+}
+.variant-select {
+    font-size: 10px;
+}
 
-  .quick-view-content { max-width: 80%; }
-  .quick-view-image img { max-width: 120px; }
-  .quick-view-details { font-size: 11px; }
-  .quick-view-details h2 { font-size: 15px; }
-  .variant-label { font-size: 12px; }
-  .variant-btn { font-size: 11px; }
-  .variant-select { font-size: 10px; }
-  .qv-add-to-cart { font-size: 11px; }
+.qv-add-to-cart {
+    font-size: 11px;
+   
+}
 }
 </style>
 
@@ -197,7 +243,7 @@ document.addEventListener("DOMContentLoaded", function() {
   let currentProduct = null;
   let selectedVariant = null;
 
-  // Open popup
+  // Quick view trigger
   document.querySelectorAll(".quick-view-trigger").forEach(btn => {
     btn.addEventListener("click", function() {
       const product = JSON.parse(this.dataset.product);
@@ -208,7 +254,7 @@ document.addEventListener("DOMContentLoaded", function() {
       qvPrice.textContent = (product.price / 100).toFixed(2) + " " + Shopify.currency.active;
       qvDescription.innerHTML = product.description || "";
 
-      // Colors
+      // Populate Color buttons
       qvColors.innerHTML = "";
       let colorIdx = product.options.indexOf("Color");
       if (colorIdx !== -1) {
@@ -222,7 +268,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
       }
 
-      // Sizes
+      // Populate Size dropdown
       qvSizes.innerHTML = '<option value="">Choose your size</option>';
       let sizeIdx = product.options.indexOf("Size");
       if (sizeIdx !== -1) {
@@ -235,7 +281,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
       }
 
-      // Default variant
+      // Default select first variant
       if (product.variants.length > 0) {
         selectVariant(product.variants[0]);
       }
@@ -287,17 +333,41 @@ document.addEventListener("DOMContentLoaded", function() {
       fetch('/cart.js')
         .then(r => r.json())
         .then(cart => {
-          const cartCountEl = document.querySelector(
-            ".cart-count, .cart-count-bubble span[aria-hidden='true'], .header__cart-count, .site-header__cart-count"
-          );
+          const cartCountEl = document.querySelector(".cart-count, .cart-count-bubble, .header__cart-count");
           if (cartCountEl) cartCountEl.textContent = cart.item_count;
         });
       modal.style.display = "none";
     });
   });
 
-  // Close popup
+  // Close
   closeBtn.addEventListener("click", () => modal.style.display = "none");
   window.addEventListener("click", e => { if (e.target === modal) modal.style.display = "none"; });
+});
+</script>
+
+<script>
+document.getElementById("qv-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+  if (!selectedVariant) return;
+
+  fetch('/cart/add.js', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ items: [{ id: selectedVariant.id, quantity: 1 }] })
+  })
+  .then(() => {
+    fetch('/cart.js')
+      .then(r => r.json())
+      .then(cart => {
+        const cartCountEl = document.querySelector(
+          ".cart-count, .cart-count-bubble span[aria-hidden='true'], .header__cart-count, .site-header__cart-count"
+        );
+        if (cartCountEl) {
+          cartCountEl.textContent = cart.item_count;
+        }
+      });
+    modal.style.display = "none";
+  });
 });
 </script>
