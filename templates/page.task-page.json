@@ -33,8 +33,8 @@
         "banner_image": "shopify://shop_images/1.png"
       }
     },
-    "product_grid_custom_ChHDqj": {
-      "type": "Product-grid-custom",
+    "product_grid_popup_WbGVbw": {
+      "type": "Product-grid-popup",
       "name": "Product-grid-popup",
       "settings": {
         "product_1": "black-leather-bag",
@@ -49,6 +49,6 @@
   "order": [
     "main",
     "banner_custom_KfAWpC",
-    "product_grid_custom_ChHDqj"
+    "product_grid_popup_WbGVbw"
   ]
 }
